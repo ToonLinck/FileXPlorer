@@ -32,73 +32,50 @@
   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Accordion?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox fx:id="MainWindowView" prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<VBox fx:id="MainWindowView" prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.filexplorer.GUIController">
   <children>
-    <MenuBar fx:id="MainWindowMenuBar" VBox.vgrow="NEVER">
-      <menus>
-        <Menu fx:id="MainWindowMenuBrowseFiles" mnemonicParsing="false" text="Open">
-          <items>
-            <MenuItem mnemonicParsing="false" text="New" />
-            <MenuItem mnemonicParsing="false" text="Open…" />
-            <Menu mnemonicParsing="false" text="Open Recent" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Close" />
-            <MenuItem mnemonicParsing="false" text="Save" />
-            <MenuItem mnemonicParsing="false" text="Save As…" />
-            <MenuItem mnemonicParsing="false" text="Revert" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Preferences…" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Quit" />
-          </items>
-        </Menu>
-            <Menu fx:id="MainWindowMenuOpenDirectory" disable="true" mnemonicParsing="false" text="Open">
-              <items>
-                <MenuItem mnemonicParsing="false" text="Action 1" />
-              </items>
-            </Menu>
-        <Menu fx:id="MainWindowMenuNewFile" mnemonicParsing="false" text="New">
-          <items>
-            <MenuItem mnemonicParsing="false" text="Undo" />
-            <MenuItem mnemonicParsing="false" text="Redo" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Cut" />
-            <MenuItem mnemonicParsing="false" text="Copy" />
-            <MenuItem mnemonicParsing="false" text="Paste" />
-            <MenuItem mnemonicParsing="false" text="Delete" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Select All" />
-            <MenuItem mnemonicParsing="false" text="Unselect All" />
-          </items>
-        </Menu>
-        <Menu fx:id="MainWindowMenuDeleteFile" mnemonicParsing="false" text="Delete">
-          <items>
-            <MenuItem mnemonicParsing="false" text="About MyHelloApp" />
-          </items>
-        </Menu>
-            <Menu fx:id="MainWindowMenuEditFile" mnemonicParsing="false" text="Edit">
-              <items>
-                <MenuItem mnemonicParsing="false" text="Action 1" />
-              </items>
-            </Menu>
-      </menus>
-    </MenuBar>
+      <ToolBar fx:id="MainWindowToolBar" prefHeight="40.0" prefWidth="200.0">
+        <items>
+          <Button fx:id="MainWindowToolBarZurueckButton" mnemonicParsing="false" text="Zurück" />
+            <Button fx:id="MainWindowToolBarOeffnenButton" mnemonicParsing="false" text="Öffnen" />
+            <Button fx:id="MainWindowToolBarLoeschenButton" mnemonicParsing="false" text="Löschen" />
+            <Button fx:id="MainWindowToolBarNeuButton" mnemonicParsing="false" text="Neu" />
+            <ChoiceBox fx:id="MainWindowToolBarChoiceBox" prefWidth="150.0" />
+        </items>
+      </ToolBar>
+      <ToolBar fx:id="MainWindowToolBar1" prefHeight="40.0" prefWidth="200.0">
+         <items>
+            <Button fx:id="MainWindowToolSubBarAnzeigenButton" mnemonicParsing="false" text="Anzeigen" />
+            <Button fx:id="MainWindowToolSubBarBearbeitenbButton" mnemonicParsing="false" text="Bearbeiten" />
+            <CheckBox fx:id="MainWindowToolSubBarOrdnerAnzeigenCheckBox" mnemonicParsing="false" selected="true" text="Ordner anzeigen">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </CheckBox>
+            <CheckBox fx:id="MainWindowToolSubBarDateienAnzeigenCheckBox1" mnemonicParsing="false" selected="true" text="Dateien anzeigen">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </CheckBox>
+            <TextField fx:id="MainWindowToolSubBarSuchfeld" promptText="Suchen..." />
+            <Button fx:id="MainWindowToolSubBarSuchenButton" mnemonicParsing="false" text="Suchen" />
+         </items>
+      </ToolBar>
     <AnchorPane fx:id="MainWindowBody" maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
          <children>
-            <Accordion layoutX="320.0" layoutY="138.0" />
             <Accordion prefHeight="375.0" prefWidth="640.0">
               <panes>
                 <TitledPane animated="false" text="File.txt">
@@ -106,14 +83,14 @@
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
                               <Label layoutX="14.0" layoutY="14.0" prefHeight="25.0" prefWidth="53.0" text="Name" />
-                              <Button layoutX="536.0" layoutY="310.0" mnemonicParsing="false" text="save changes" />
+                              <Button layoutX="488.0" layoutY="310.0" mnemonicParsing="false" text="Änderungen speichern" />
                               <TextField layoutX="83.0" layoutY="14.0" prefHeight="25.0" prefWidth="122.0" />
-                              <Label layoutX="14.0" layoutY="49.0" prefHeight="25.0" prefWidth="53.0" text="Filetype" />
+                              <Label layoutX="14.0" layoutY="49.0" prefHeight="25.0" prefWidth="53.0" text="Dateityp" />
                               <TextField editable="false" layoutX="83.0" layoutY="49.0" prefHeight="25.0" prefWidth="122.0" />
                               <Label layoutX="257.0" layoutY="14.0" prefHeight="25.0" prefWidth="100.0" text="Änderungsdatum" />
                               <DatePicker editable="false" layoutX="368.0" layoutY="14.0" />
                               <Label layoutX="14.0" layoutY="84.0" prefHeight="25.0" prefWidth="53.0" text="Größe" />
-                              <TextField layoutX="83.0" layoutY="84.0" prefHeight="25.0" prefWidth="122.0" />
+                              <TextField editable="false" layoutX="83.0" layoutY="84.0" prefHeight="25.0" prefWidth="122.0" />
                               <Label layoutX="257.0" layoutY="49.0" prefHeight="25.0" prefWidth="100.0" text="Erstellungsdatum" />
                               <DatePicker editable="false" layoutX="368.0" layoutY="49.0" />
                            </children>
