@@ -1,6 +1,6 @@
 package com.example.filexplorer;
 
-import javafx.*;
+import FileXPlorer.Backend.DateiInfoModel;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
@@ -11,7 +11,7 @@ import java.util.List;
 public class GUIController {
 
 
-    public List<DateiInfo> dateiList = new ArrayList<DateiInfo>();
+    public List<DateiInfoModel> dateiList = new ArrayList<DateiInfoModel>();
 
     @FXML
     ChoiceBox MainWindowToolBarChoiceBox;
@@ -57,9 +57,9 @@ public class GUIController {
      * @param dateiInfo Das DateiInfo Objekt enthält relevante Informationen über die darzustellende Datei
      * @return Ein fertiges TitledPane Element, in das die Daten der Datei eingefügt wurden
      */
-    private TitledPane CreateElementFromDateiInfo (DateiInfo dateiInfo) {
+    private TitledPane CreateElementFromDateiInfo (DateiInfoModel dateiInfo) {
         TitledPane returnTitledPane = new TitledPane();
-        returnTitledPane.setText(dateiInfo.getDateiName());
+        returnTitledPane.setText(dateiInfo.dateiName);
 
             AnchorPane nAnchorPane = new AnchorPane();
                 Label nameLabel = new Label();
@@ -89,7 +89,7 @@ public class GUIController {
 
 
                 TextField nameTextField = new TextField();
-                    nameTextField.setText(dateiInfo.getDateiName());
+                    nameTextField.setText(dateiInfo.dateiName);
                     nameTextField.setPrefSize(122,25);
                     nameTextField.setLayoutX(83);
                     nameTextField.setLayoutY(14);
@@ -100,13 +100,13 @@ public class GUIController {
                     saveButton.setLayoutX(488);
                     saveButton.setOnAction(event -> {
                          if (!nameTextField.getText().isEmpty()) {
-                             dateiInfo.setDateiName(nameTextField.getText());
+                             dateiInfo.dateiName = nameTextField.getText();
                              ChangeDateiInfo(dateiInfo);
                          }
                     });
 
         TextField groesseTextField = new TextField();
-        nameTextField.setText("" + dateiInfo.getDateigröße());
+        nameTextField.setText("" + dateiInfo.dateigröße);
         nameTextField.setPrefSize(122,25);
         nameTextField.setLayoutX(83);
         nameTextField.setLayoutY(84);
@@ -129,7 +129,7 @@ public class GUIController {
         return returnTitledPane;
     }
 
-    private void ChangeDateiInfo(DateiInfo nDateiInfo) {
+    private void ChangeDateiInfo(DateiInfoModel nDateiInfo) {
         //todo Datei info wird geändert
     }
 
