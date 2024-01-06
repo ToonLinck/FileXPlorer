@@ -1,6 +1,6 @@
 package com.example.filexplorer;
 
-import FileXPlorer.Backend.DateiInfoModel;
+import FileXPlorer.Backend.DateiInfo;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
@@ -11,7 +11,7 @@ import java.util.List;
 public class GUIController {
 
 
-    public List<DateiInfoModel> dateiList = new ArrayList<DateiInfoModel>();
+    public List<DateiInfo> dateiList = new ArrayList<DateiInfo>();
 
     @FXML
     ChoiceBox MainWindowToolBarChoiceBox;
@@ -57,7 +57,7 @@ public class GUIController {
      * @param dateiInfo Das DateiInfo Objekt enthält relevante Informationen über die darzustellende Datei
      * @return Ein fertiges TitledPane Element, in das die Daten der Datei eingefügt wurden
      */
-    private TitledPane CreateElementFromDateiInfo (DateiInfoModel dateiInfo) {
+    private TitledPane CreateElementFromDateiInfo (DateiInfo dateiInfo) {
         TitledPane returnTitledPane = new TitledPane();
         returnTitledPane.setText(dateiInfo.dateiName);
 
@@ -129,7 +129,7 @@ public class GUIController {
         return returnTitledPane;
     }
 
-    private void ChangeDateiInfo(DateiInfoModel nDateiInfo) {
+    private void ChangeDateiInfo(DateiInfo nDateiInfo) {
         //todo Datei info wird geändert
     }
 
