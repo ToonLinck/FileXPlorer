@@ -61,14 +61,8 @@
             <Button fx:id="MainWindowToolSubBarAnzeigenButton" mnemonicParsing="false" text="Anzeigen" />
             <Button fx:id="MainWindowToolSubBarBearbeitenbButton" mnemonicParsing="false" text="Bearbeiten" />
             <CheckBox fx:id="MainWindowToolSubBarOrdnerAnzeigenCheckBox" mnemonicParsing="false" selected="true" text="Ordner anzeigen">
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
             </CheckBox>
             <CheckBox fx:id="MainWindowToolSubBarDateienAnzeigenCheckBox1" mnemonicParsing="false" selected="true" text="Dateien anzeigen">
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
             </CheckBox>
             <TextField fx:id="MainWindowToolSubBarSuchfeld" promptText="Suchen..." />
             <Button fx:id="MainWindowToolSubBarSuchenButton" mnemonicParsing="false" text="Suchen" />
