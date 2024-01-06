@@ -81,6 +81,15 @@ public class FileManager {
         }
     }
 
+    public boolean DeleteFile(){
+        return selectedFile.delete();
+    }
+
+    public boolean DeleteFile(String path){
+        selectedFile = new File(path);
+        return DeleteFile();
+    }
+
     public boolean CreateNewFile(String name, String Content){
         return true;
     }
