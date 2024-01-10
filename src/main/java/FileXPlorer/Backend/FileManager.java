@@ -1,9 +1,6 @@
 package FileXPlorer.Backend;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.util.Date;
+import java.io.*;
 
 public class FileManager {
     File currentFolder;
@@ -19,12 +16,13 @@ public class FileManager {
         OpenFolder();
     }
 
-    public void OpenFolder(){
+    private void OpenFolder(){
         folderContents = currentFolder.listFiles();
 
         //Debug PrintFolderContents();
     }
     public void PrintFolderContents() {
+        OpenFolder();
         if ((folderContents == null))
         {
             System.out.println("404 Folder not found");
@@ -39,7 +37,7 @@ public class FileManager {
         }
     }
 
-    public String OpenFile(){
+    public String openTxtFile(){
         try {
             BufferedReader reader = new BufferedReader(new FileReader(selectedFile));
             String line;
@@ -47,7 +45,9 @@ public class FileManager {
             while((line = reader.readLine()) != null){
                 fileContents.append(line).append("\n");
             }
-            return fileContents.toString();
+            String result = fileContents.toString();
+            reader.close();
+            return result;
         } catch (Exception e) {
             return "An Error occurred while reading the File at: '" + selectedFile.getAbsolutePath() + "', Please ensure the File exists and can be read.";
         }
@@ -55,14 +55,19 @@ public class FileManager {
 
     public static void main(String[] args) {
         FileManager manager = new FileManager();
-        manager.OpenFolder();
-        manager.CreateNewFile();
-        manager.selectedFile = new File(manager.currentFolder.getAbsolutePath() + File.separator + "Unnamed.txt");
-        manager.PrintFolderContents();
+
+        String fileName = "Test";
+
+        manager.CreateNewFile(fileName, "Hewwuuuuuuu!");
+        manager.selectedFile = new File(manager.currentFolder + File.separator + fileName + ".txt");
+        System.out.println("File Contents: " + manager.openTxtFile());
     }
 
     public boolean CreateNewFile(){
-        String baseName = "Unnamed";
+        return CreateNewFile("Unnamed", "");
+    }
+
+    public boolean CreateNewFile(String baseName, String Content){
         String name;
         int counter = 1;
 
@@ -74,12 +79,19 @@ public class FileManager {
                 temp = new File(currentFolder + File.separator + name + ".txt");
                 counter++;
             }
-            return true;
+            if(Content != null){
+                BufferedWriter writer = new BufferedWriter(new FileWriter(temp));
+                writer.write(Content);
+                writer.close();
+            }
         }
         catch(Exception e){
             System.out.println("File could not be created!");
             return false;
         }
+
+        while(!temp.exists()){ }
+        return true;
     }
 
     public boolean DeleteFile(){
@@ -89,9 +101,5 @@ public class FileManager {
     public boolean DeleteFile(String path){
         selectedFile = new File(path);
         return DeleteFile();
-    }
-
-    public boolean CreateNewFile(String name, String Content){
-        return true;
     }
 }
