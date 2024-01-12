@@ -70,7 +70,7 @@
       </ToolBar>
     <AnchorPane fx:id="MainWindowBody" maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
          <children>
-            <Accordion prefHeight="375.0" prefWidth="640.0">
+            <Accordion fx:id="mainWindowAccordion" prefHeight="375.0" prefWidth="640.0">
               <panes>
                 <TitledPane animated="false" text="File.txt">
                   <content>
@@ -85,8 +85,6 @@
                               <DatePicker editable="false" layoutX="368.0" layoutY="14.0" />
                               <Label layoutX="14.0" layoutY="84.0" prefHeight="25.0" prefWidth="53.0" text="Größe" />
                               <TextField editable="false" layoutX="83.0" layoutY="84.0" prefHeight="25.0" prefWidth="122.0" />
-                              <Label layoutX="257.0" layoutY="49.0" prefHeight="25.0" prefWidth="100.0" text="Erstellungsdatum" />
-                              <DatePicker editable="false" layoutX="368.0" layoutY="49.0" />
                            </children>
                         </AnchorPane>
                   </content>

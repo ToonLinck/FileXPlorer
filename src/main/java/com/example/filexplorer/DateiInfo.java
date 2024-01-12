@@ -45,14 +45,14 @@ public class DateiInfo {
     }
 
     public String getTrueDateiName() {
-        return trueDateiName;
+        return trueDateiPfad;
     }
 
-    public void setTrueDateiName(String trueDateiName) {
-        this.trueDateiName = trueDateiName;
+    public void setTrueDateiName(String trueDateiPfad) {
+        this.trueDateiPfad = trueDateiPfad;
     }
 
-    public String trueDateiName;
+    public String trueDateiPfad;
     public String dateiName;
     public String dateiTyp;
     public int dateigröße;
