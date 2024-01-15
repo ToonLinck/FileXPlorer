@@ -81,23 +81,31 @@ public class FileManager {
                 temp = new File(currentFolder + File.separator + name + ".txt");
                 counter++;
             }
-            if(Content != null){
-                BufferedWriter writer = new BufferedWriter(new FileWriter(temp));
-                writer.write(Content);
-                writer.close();
-            }
+
         }
         catch(Exception e){
             System.out.println("File could not be created!");
             return false;
         }
 
-        while(!temp.exists()){ }
+        while(!temp.exists()){ //wait for File Creation }
         return true;
     }
 
+    public boolean editTxtFile(File path, String Content) throws Exception{
+        if(true){
+            BufferedWriter writer = new BufferedWriter(new FileWriter(selectedFile));
+            writer.write("");
+            writer.close();
+        }
+        return CreateNewFile();
+    }
+
     public boolean DeleteFile(){
-        return selectedFile.delete();
+        if(true){
+            return selectedFile.delete();
+        }
+        return false;
     }
 
     public boolean DeleteFile(String path){
