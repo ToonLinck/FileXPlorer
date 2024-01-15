@@ -1,51 +1,48 @@
 package com.example.filexplorer;
 
 import FileXPlorer.Backend.DateiInfo;
+import FileXPlorer.Backend.FileManager;
 import javafx.*;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
+import java.io.*;
+
+import java.time.Instant;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
 public class GUIController {
 
-
+    public FileManager fileManager = new FileManager();
     public List<DateiInfo> dateiList = new ArrayList<DateiInfo>();
+
+    private String currDirPath = "";
 
     @FXML
     ChoiceBox mainWindowToolBarChoiceBox;
 
     @FXML
     Button mainWindowToolBarZurueckButton, mainWindowToolBarOeffnenButton, mainWindowToolBarLoeschenButton,
-            mainWindowToolBarNeuButton, mainWindowToolSubBarAnzeigenButton, mainWindowToolSubBarBearbeitenbButton,
-            mainWindowToolSubBarSuchenButton;
+            mainWindowToolBarNeuButton;
 
     @FXML
-    CheckBox mainWindowToolSubBarOrdnerAnzeigenCheckBox, mainWindowToolSubBarDateienAnzeigenCheckBox1;
+    CheckBox mainWindowToolSubBarOrdnerAnzeigenCheckBox, mainWindowToolSubBarDateienAnzeigenCheckBox;
 
     @FXML
     Accordion mainWindowAccordion;
 
     @FXML
     public void initialize() {
-        mainWindowToolBarChoiceBox.getItems().add("Groeße ASC");
-        mainWindowToolBarChoiceBox.getItems().add("Groeße DESC");
-        mainWindowToolBarChoiceBox.getItems().add("ALter ASC");
-        mainWindowToolBarChoiceBox.getItems().add("Alter DESC");
-        mainWindowToolBarChoiceBox.getItems().add("Alphabetisch");
 
-        DateiInfo testDatei = new DateiInfo();
-        testDatei.dateiName = "test.txt";
-        testDatei.dateiTyp = "Textdatei";
-        testDatei.dateigröße = 2333;
-        testDatei.trueDateiPfad = "C:/test.txt";
-
-
-        dateiList.add(testDatei);
-
+        dateiList = Arrays.asList(DateiInfo.ConvertFileArrayToInfoArray(fileManager.getRootDir()));
 
         loadFileOverview();
     }
@@ -53,12 +50,26 @@ public class GUIController {
 
 
     /**
-     * Diese Methode wird ausgeführt, wenn der "Open" knopf gedrückt wird. Wenn der beigelegte Dateipfad zu einem
+     * Wenn der beigelegte Dateipfad zu einem
      * Ordner führt, wird dieser Geöffnet und Inhalte werden geladen.
+     *
+     * @param dateiInfo das zugehörige DateiInfo Objekt des zu öffnenden Ordners
      */
-    public void openFolder(String dateiPfad) {
-        if (dateiPfad != null && !dateiPfad.isEmpty()){
+    private void openFolder(DateiInfo dateiInfo) {
+        if (dateiInfo != null && !dateiInfo.trueDateiPfad.isEmpty()){
+            if (dateiInfo.dateiTyp == "") {       // bei einem leeren String als Dateityp liegt ein Ordner vor
 
+                List<DateiInfo> neueDateiInfoList = new ArrayList<>(); //eine neue, leere Liste an DateiInfo Objekten wird erstellt
+
+
+                fileManager.OpenFolder(dateiInfo.trueDateiPfad); //Ordner wird geöffnet
+
+                neueDateiInfoList = Arrays.asList(DateiInfo.ConvertFileArrayToInfoArray(fileManager.getFolderContents())); //Neue Liste wird mit Inhalten des Ordenr gefüllt
+
+                dateiList = filterSuchergebnisse(neueDateiInfoList); //Neue liste wird gefiltert und ersetzt alte Liste
+
+                loadFileOverview();
+            }
         }
     }
 
@@ -125,7 +136,7 @@ public class GUIController {
                     });
 
                 TextField groesseTextField = new TextField();
-        groesseTextField.setText("" + dateiInfo.dateigröße);
+        groesseTextField.setText("" + (dateiInfo.dateigröße / 1000));
         groesseTextField.setPrefSize(122,25);
         groesseTextField.setLayoutX(83);
         groesseTextField.setLayoutY(84);
@@ -141,6 +152,7 @@ public class GUIController {
             DatePicker aenderungsungsdatumPicker = new DatePicker();
                 aenderungsungsdatumPicker.setLayoutX(368);
                 aenderungsungsdatumPicker.setLayoutY(14);
+                aenderungsungsdatumPicker.setValue(Instant.ofEpochMilli(dateiInfo.dateiAenderungsdatum).atZone(ZoneId.systemDefault()).toLocalDate());
                 aenderungsungsdatumPicker.setEditable(false);
 
             nAnchorPane.getChildren().add(dateiTypTextField);
@@ -182,5 +194,96 @@ public class GUIController {
 
         return null;
     }
+
+    /**
+     *  Wird Ausgeführt, wenn der Öffnen knopf betätigt wird
+     */
+    @FXML
+    private void open() {
+        if (mainWindowAccordion.getExpandedPane() != null) {
+            String selectedTruePath = mainWindowAccordion.getExpandedPane().getText();
+            DateiInfo selectedInfo = findDateiInfoFromTruePath(selectedTruePath);
+            if (selectedInfo != null && selectedInfo.dateiTyp == "") {
+                currDirPath = selectedTruePath;
+                openFolder(selectedInfo);
+            }
+        }
+    }
+
+    /**
+     * Wird ausgeführt, wenn der Zurück Knopf betätigt wird
+     */
+    @FXML
+    private void openPrev() {
+        if (!currDirPath.isEmpty()) {
+            File parentFile = fileManager.getCurrentFolder().getParentFile();
+            if (parentFile == null) {
+                dateiList = Arrays.asList(DateiInfo.ConvertFileArrayToInfoArray(fileManager.getRootDir()));
+                currDirPath = "";
+                loadFileOverview();
+            }
+            else {
+                currDirPath = parentFile.getPath();
+                fileManager.OpenFolder(currDirPath);
+                openFolder(DateiInfo.ConvertFileToInfo(fileManager.getCurrentFolder()));
+            }
+        }
+    }
+
+    /**
+     * Wird ausgeführt, wenn der Löschen Knopf betätigt wird
+     */
+    @FXML
+    private void löschen() {
+        if (mainWindowAccordion.getExpandedPane() != null) {
+            DateiInfo selectedInfo = findDateiInfoFromTruePath(mainWindowAccordion.getExpandedPane().getText());
+
+
+            DateiInfo parentInfo = DateiInfo.ConvertFileToInfo(DateiInfo.convertInfoToFile(selectedInfo).getParentFile());
+
+            fileManager.DeleteFile(selectedInfo.trueDateiPfad);
+
+            openFolder(parentInfo);
+
+            loadFileOverview();
+        }
+    }
+
+    /**
+     * Eine Liste mit Inhalt des Typen DateiInfo wird nach den Filtereinstellungen gefiltert
+     * @param pList ungefilterte Liste
+     * @return gefilterte Liste
+     */
+    private List<DateiInfo> filterSuchergebnisse (List<DateiInfo> pList) {
+        List<DateiInfo> returnListe = new ArrayList<>();
+
+        boolean showFolders = mainWindowToolSubBarOrdnerAnzeigenCheckBox.isSelected();
+        boolean showFiles = mainWindowToolSubBarDateienAnzeigenCheckBox.isSelected();
+
+        if (showFolders) {
+            for(DateiInfo info: pList) {
+                if (info.dateiTyp.equals(""))
+                    returnListe.add(info);
+            }
+        }
+        if (showFiles) {
+            for(DateiInfo info: pList) {
+                if (!info.dateiTyp.equals(""))
+                    returnListe.add(info);
+            }
+        }
+
+
+        return returnListe;
+    }
+
+    /**
+     * Wird ausgeführt, wenn die Eingabe von einem der Filter checkboxen geändert wird
+     */
+    @FXML
+    private void filterSettingsChanged() {
+        openFolder(DateiInfo.ConvertFileToInfo(fileManager.getCurrentFolder()));
+    }
+
 
 }

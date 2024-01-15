@@ -32,15 +32,10 @@
   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Accordion?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
-<?import javafx.scene.control.ChoiceBox?>
-<?import javafx.scene.control.DatePicker?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
@@ -49,32 +44,27 @@
   <children>
       <ToolBar fx:id="mainWindowToolBar" prefHeight="40.0" prefWidth="200.0">
         <items>
-          <Button fx:id="mainWindowToolBarZurueckButton" mnemonicParsing="false" text="Zurück" />
-            <Button fx:id="mainWindowToolBarOeffnenButton" mnemonicParsing="false" text="Öffnen" />
-            <Button fx:id="mainWindowToolBarLoeschenButton" mnemonicParsing="false" text="Löschen" />
+            <Button fx:id="mainWindowToolBarZurueckButton" mnemonicParsing="false" text="Zurück" onAction="#openPrev"/>
+            <Button fx:id="mainWindowToolBarOeffnenButton" mnemonicParsing="false" onAction="#open" text="Öffnen" />
+            <Button fx:id="mainWindowToolBarLoeschenButton" mnemonicParsing="false" text="Löschen" onAction="#löschen"/>
             <Button fx:id="mainWindowToolBarNeuButton" mnemonicParsing="false" text="Neu" />
-            <ChoiceBox fx:id="mainWindowToolBarChoiceBox" prefWidth="150.0" />
         </items>
       </ToolBar>
       <ToolBar fx:id="mainWindowToolBar1" prefHeight="40.0" prefWidth="200.0">
          <items>
-            <Button fx:id="mainWindowToolSubBarAnzeigenButton" mnemonicParsing="false" text="Anzeigen" />
-            <Button fx:id="mainWindowToolSubBarBearbeitenbButton" mnemonicParsing="false" text="Bearbeiten" />
-            <CheckBox fx:id="mainWindowToolSubBarOrdnerAnzeigenCheckBox" mnemonicParsing="false" selected="true" text="Ordner anzeigen">
+            <CheckBox fx:id="mainWindowToolSubBarOrdnerAnzeigenCheckBox" mnemonicParsing="false" selected="true" text="Ordner anzeigen" onAction="#filterSettingsChanged">
             </CheckBox>
-            <CheckBox fx:id="mainWindowToolSubBarDateienAnzeigenCheckBox1" mnemonicParsing="false" selected="true" text="Dateien anzeigen">
+            <CheckBox fx:id="mainWindowToolSubBarDateienAnzeigenCheckBox" mnemonicParsing="false" selected="true" text="Dateien anzeigen" onAction="#filterSettingsChanged">
             </CheckBox>
-            <TextField fx:id="mainWindowToolSubBarSuchfeld" promptText="Suchen..." />
-            <Button fx:id="mainWindowToolSubBarSuchenButton" mnemonicParsing="false" text="Suchen" />
          </items>
       </ToolBar>
     <AnchorPane fx:id="mainWindowBody" maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
          <children>
-            <Accordion fx:id="mainWindowAccordion" prefHeight="375.0" prefWidth="640.0">
-              <panes>
-
-              </panes>
-            </Accordion>
+            <ScrollPane fitToWidth="true" prefHeight="320.0" prefWidth="640.0">
+               <content>
+                  <Accordion fx:id="mainWindowAccordion" prefHeight="318.0" prefWidth="622.0" />
+               </content>
+            </ScrollPane>
          </children>
     </AnchorPane>
   </children>

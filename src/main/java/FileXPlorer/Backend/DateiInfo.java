@@ -19,6 +19,16 @@ public class DateiInfo {
         return temp;
     }
 
+    public static DateiInfo[] ConvertFileArrayToInfoArray (File[] fileArray) {
+        DateiInfo[] infoArray = new DateiInfo[fileArray.length];
+
+        for (int i = 0; i < fileArray.length; i++) {
+            infoArray[i] = ConvertFileToInfo(fileArray[i]);
+        }
+
+        return infoArray;
+    }
+
     public static File convertInfoToFile(DateiInfo info){
         return new File(info.trueDateiPfad);
     }

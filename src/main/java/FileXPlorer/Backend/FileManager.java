@@ -3,6 +3,8 @@ package FileXPlorer.Backend;
 import java.io.*;
 
 public class FileManager {
+
+
     File currentFolder;
     File selectedFile;
     File[] folderContents;
@@ -102,4 +104,18 @@ public class FileManager {
         selectedFile = new File(path);
         return DeleteFile();
     }
+
+    public File[] getRootDir () {
+        return File.listRoots();
+    }
+
+    public File[] getFolderContents() {
+        return folderContents;
+    }
+
+    public File getCurrentFolder() {
+        return currentFolder;
+    }
+
+
 }
