@@ -45,50 +45,34 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox fx:id="MainWindowView" prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.filexplorer.GUIController">
+<VBox fx:id="mainWindowView" prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.filexplorer.GUIController">
   <children>
-      <ToolBar fx:id="MainWindowToolBar" prefHeight="40.0" prefWidth="200.0">
+      <ToolBar fx:id="mainWindowToolBar" prefHeight="40.0" prefWidth="200.0">
         <items>
-          <Button fx:id="MainWindowToolBarZurueckButton" mnemonicParsing="false" text="Zurück" />
-            <Button fx:id="MainWindowToolBarOeffnenButton" mnemonicParsing="false" text="Öffnen" />
-            <Button fx:id="MainWindowToolBarLoeschenButton" mnemonicParsing="false" text="Löschen" />
-            <Button fx:id="MainWindowToolBarNeuButton" mnemonicParsing="false" text="Neu" />
-            <ChoiceBox fx:id="MainWindowToolBarChoiceBox" prefWidth="150.0" />
+          <Button fx:id="mainWindowToolBarZurueckButton" mnemonicParsing="false" text="Zurück" />
+            <Button fx:id="mainWindowToolBarOeffnenButton" mnemonicParsing="false" text="Öffnen" />
+            <Button fx:id="mainWindowToolBarLoeschenButton" mnemonicParsing="false" text="Löschen" />
+            <Button fx:id="mainWindowToolBarNeuButton" mnemonicParsing="false" text="Neu" />
+            <ChoiceBox fx:id="mainWindowToolBarChoiceBox" prefWidth="150.0" />
         </items>
       </ToolBar>
-      <ToolBar fx:id="MainWindowToolBar1" prefHeight="40.0" prefWidth="200.0">
+      <ToolBar fx:id="mainWindowToolBar1" prefHeight="40.0" prefWidth="200.0">
          <items>
-            <Button fx:id="MainWindowToolSubBarAnzeigenButton" mnemonicParsing="false" text="Anzeigen" />
-            <Button fx:id="MainWindowToolSubBarBearbeitenbButton" mnemonicParsing="false" text="Bearbeiten" />
-            <CheckBox fx:id="MainWindowToolSubBarOrdnerAnzeigenCheckBox" mnemonicParsing="false" selected="true" text="Ordner anzeigen">
+            <Button fx:id="mainWindowToolSubBarAnzeigenButton" mnemonicParsing="false" text="Anzeigen" />
+            <Button fx:id="mainWindowToolSubBarBearbeitenbButton" mnemonicParsing="false" text="Bearbeiten" />
+            <CheckBox fx:id="mainWindowToolSubBarOrdnerAnzeigenCheckBox" mnemonicParsing="false" selected="true" text="Ordner anzeigen">
             </CheckBox>
-            <CheckBox fx:id="MainWindowToolSubBarDateienAnzeigenCheckBox1" mnemonicParsing="false" selected="true" text="Dateien anzeigen">
+            <CheckBox fx:id="mainWindowToolSubBarDateienAnzeigenCheckBox1" mnemonicParsing="false" selected="true" text="Dateien anzeigen">
             </CheckBox>
-            <TextField fx:id="MainWindowToolSubBarSuchfeld" promptText="Suchen..." />
-            <Button fx:id="MainWindowToolSubBarSuchenButton" mnemonicParsing="false" text="Suchen" />
+            <TextField fx:id="mainWindowToolSubBarSuchfeld" promptText="Suchen..." />
+            <Button fx:id="mainWindowToolSubBarSuchenButton" mnemonicParsing="false" text="Suchen" />
          </items>
       </ToolBar>
-    <AnchorPane fx:id="MainWindowBody" maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
+    <AnchorPane fx:id="mainWindowBody" maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
          <children>
             <Accordion fx:id="mainWindowAccordion" prefHeight="375.0" prefWidth="640.0">
               <panes>
-                <TitledPane animated="false" text="File.txt">
-                  <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                           <children>
-                              <Label layoutX="14.0" layoutY="14.0" prefHeight="25.0" prefWidth="53.0" text="Name" />
-                              <Button layoutX="488.0" layoutY="310.0" mnemonicParsing="false" text="Änderungen speichern" />
-                              <TextField layoutX="83.0" layoutY="14.0" prefHeight="25.0" prefWidth="122.0" />
-                              <Label layoutX="14.0" layoutY="49.0" prefHeight="25.0" prefWidth="53.0" text="Dateityp" />
-                              <TextField editable="false" layoutX="83.0" layoutY="49.0" prefHeight="25.0" prefWidth="122.0" />
-                              <Label layoutX="257.0" layoutY="14.0" prefHeight="25.0" prefWidth="100.0" text="Änderungsdatum" />
-                              <DatePicker editable="false" layoutX="368.0" layoutY="14.0" />
-                              <Label layoutX="14.0" layoutY="84.0" prefHeight="25.0" prefWidth="53.0" text="Größe" />
-                              <TextField editable="false" layoutX="83.0" layoutY="84.0" prefHeight="25.0" prefWidth="122.0" />
-                           </children>
-                        </AnchorPane>
-                  </content>
-                </TitledPane>
+
               </panes>
             </Accordion>
          </children>
