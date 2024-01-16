@@ -62,7 +62,7 @@ public class GUIController {
                 List<DateiInfo> neueDateiInfoList = new ArrayList<>(); //eine neue, leere Liste an DateiInfo Objekten wird erstellt
 
 
-                fileManager.OpenFolder(dateiInfo.trueDateiPfad); //Ordner wird geöffnet
+                fileManager.openFolder(dateiInfo.trueDateiPfad); //Ordner wird geöffnet
 
                 neueDateiInfoList = Arrays.asList(DateiInfo.ConvertFileArrayToInfoArray(fileManager.getFolderContents())); //Neue Liste wird mit Inhalten des Ordenr gefüllt
 
@@ -129,10 +129,11 @@ public class GUIController {
                     saveButton.setLayoutY(200);
                     saveButton.setLayoutX(450);
                     saveButton.setOnAction(event -> {
-                         if (!nameTextField.getText().isEmpty()) {
-                             dateiInfo.dateiName = nameTextField.getText();
-                             ChangeDateiInfo(dateiInfo);
-                         }
+                             try {
+                                 editTxt();
+                             } catch (IOException e) {
+                                 throw new RuntimeException(e);
+                             }
                     });
 
                 TextField groesseTextField = new TextField();
@@ -172,9 +173,6 @@ public class GUIController {
         return returnTitledPane;
     }
 
-    private void ChangeDateiInfo(DateiInfo nDateiInfo) {
-        //todo Datei info wird geändert
-    }
 
     /**
      * Sucht in der dateiList Liste nach einem DateiInfo Objekt, wobei der DateiPfad gegeben wird
@@ -224,7 +222,7 @@ public class GUIController {
             }
             else {
                 currDirPath = parentFile.getPath();
-                fileManager.OpenFolder(currDirPath);
+                fileManager.openFolder(currDirPath);
                 openFolder(DateiInfo.ConvertFileToInfo(fileManager.getCurrentFolder()));
             }
         }
@@ -241,7 +239,7 @@ public class GUIController {
 
             DateiInfo parentInfo = DateiInfo.ConvertFileToInfo(DateiInfo.convertInfoToFile(selectedInfo).getParentFile());
 
-            fileManager.DeleteFile(selectedInfo.trueDateiPfad);
+            fileManager.deleteFile(selectedInfo.trueDateiPfad);
 
             openFolder(parentInfo);
 
@@ -284,6 +282,26 @@ public class GUIController {
     private void filterSettingsChanged() {
         openFolder(DateiInfo.ConvertFileToInfo(fileManager.getCurrentFolder()));
     }
+
+    @FXML
+    private void createNewTxt() throws IOException {
+
+
+
+        TextCreateController textCreateController = new TextCreateController(fileManager.getCurrentFolder().getPath());
+        textCreateController.show();
+    }
+
+    @FXML
+    private void editTxt() throws IOException {
+        DateiInfo dateiInfo = findDateiInfoFromTruePath(mainWindowAccordion.getExpandedPane().getText());
+
+        if (dateiInfo.dateiTyp.equals(".txt")) {
+            TextEditController textEditController = new TextEditController(dateiInfo);
+            textEditController.show();
+        }
+    }
+
 
 
 }

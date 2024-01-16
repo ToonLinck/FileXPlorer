@@ -32,40 +32,24 @@
   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 
-<?import javafx.scene.control.Accordion?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.CheckBox?>
-<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToolBar?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox fx:id="mainWindowView" prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.filexplorer.GUIController">
+<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" >
   <children>
-      <ToolBar fx:id="mainWindowToolBar" prefHeight="40.0" prefWidth="200.0">
+      <ToolBar prefHeight="40.0" prefWidth="200.0">
         <items>
-            <Button fx:id="mainWindowToolBarZurueckButton" mnemonicParsing="false" text="Zurück" onAction="#openPrev"/>
-            <Button fx:id="mainWindowToolBarOeffnenButton" mnemonicParsing="false" onAction="#open" text="Öffnen" />
-            <Button fx:id="mainWindowToolBarLoeschenButton" mnemonicParsing="false" text="Löschen" onAction="#löschen"/>
-            <Button fx:id="mainWindowToolBarNeuButton" mnemonicParsing="false" text="Neu" onAction="#createNewTxt" />
+          <Button fx:id="textEditSaveButton" mnemonicParsing="false" text="Speichern" />
         </items>
       </ToolBar>
-      <ToolBar fx:id="mainWindowToolBar1" prefHeight="40.0" prefWidth="200.0">
-         <items>
-            <CheckBox fx:id="mainWindowToolSubBarOrdnerAnzeigenCheckBox" mnemonicParsing="false" selected="true" text="Ordner anzeigen" onAction="#filterSettingsChanged">
-            </CheckBox>
-            <CheckBox fx:id="mainWindowToolSubBarDateienAnzeigenCheckBox" mnemonicParsing="false" selected="true" text="Dateien anzeigen" onAction="#filterSettingsChanged">
-            </CheckBox>
-         </items>
-      </ToolBar>
-    <AnchorPane fx:id="mainWindowBody" maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
+      <VBox prefHeight="360.0" prefWidth="640.0">
          <children>
-            <ScrollPane fitToWidth="true" prefHeight="320.0" prefWidth="640.0">
-               <content>
-                  <Accordion fx:id="mainWindowAccordion" prefHeight="318.0" prefWidth="622.0" />
-               </content>
-            </ScrollPane>
+            <TextField fx:id="textEditNameField" promptText="Unnamed" />
+            <TextArea fx:id="textEditContentField" prefHeight="307.0" prefWidth="640.0" promptText="Your text here..." VBox.vgrow="ALWAYS" />
          </children>
-    </AnchorPane>
+      </VBox>
   </children>
 </VBox>

@@ -188,4 +188,8 @@ public class FileManager {
         selectedFile = new File(path);
         return deleteFile();
     }
+
+    public File[] getRootDir() {
+        return File.listRoots();
+    }
 }
