@@ -2,13 +2,9 @@ package com.example.filexplorer;
 
 import FileXPlorer.Backend.DateiInfo;
 import FileXPlorer.Backend.FileManager;
-import javafx.*;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
 
 import java.io.*;
 
@@ -16,7 +12,6 @@ import java.time.Instant;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
 public class GUIController {

@@ -8,8 +8,8 @@ public class FileManager {
     File[] folderContents;
 
     /**
-     * returns the Contents of the currently viewed folder as a List of files
-     * @return
+     * returns a List of Files in the current folder
+     * @return list of Files
      */
     public File[] getFolderContents() {
         return folderContents;
@@ -17,7 +17,7 @@ public class FileManager {
 
     /**
      * returns the currently viewed Folder
-     * @return
+     * @return the current folder as a File
      */
     public File getCurrentFolder() {
         return currentFolder;
@@ -32,7 +32,7 @@ public class FileManager {
 
     /**
      * opens the Folder at the specified location
-     * @param folderPath
+     * @param folderPath absolute path of the folder
      * @return
      */
     public boolean openFolder(String folderPath)
@@ -42,8 +42,8 @@ public class FileManager {
     }
 
     /**
-     * shorthand for opening the current Folder, fails when said Folder doesn't exist
-     * @return
+     * shorthand for opening the current Folder
+     * @return false when folder doesn't exist
      */
     private boolean openFolder(){
         if(currentFolder.exists()){
@@ -73,8 +73,8 @@ public class FileManager {
     }
 
     /**
-     * returns the contents of the currently selected text file as a String
-     * @return
+     * opens the currently selected text file
+     * @return String of contents of the current text file
      * @throws IOException
      */
     public String openTxtFile() throws IOException {
@@ -94,9 +94,9 @@ public class FileManager {
     }
 
     /**
-     * returns the contents of a text file at the specified location
-     * @param path
-     * @return
+     * Opens a text file at the specified location
+     * @param path absolute path of the file
+     * @return String of contents of the text file
      * @throws IOException
      */
     public String openTxtFile(String path) throws IOException {
@@ -106,7 +106,7 @@ public class FileManager {
 
     /**
      * creates a new text file in the currently viewed folder
-     * @return
+     * @return true on successful creation
      */
     public boolean createNewTxtFile(){
         return createNewTxtFile("Unnamed", "");
@@ -114,9 +114,9 @@ public class FileManager {
 
     /**
      * creates a new text file at a specified location with specified content
-     * @param baseName
-     * @param Content
-     * @return
+     * @param baseName preferred name of the file
+     * @param Content String to be written to the file
+     * @return true on success
      */
     public boolean createNewTxtFile(String baseName, String Content){
         String name;
@@ -142,8 +142,8 @@ public class FileManager {
 
     /**
      * changes the content of the currently selected text file to the specified String
-     * @param content
-     * @return
+     * @param content new content of text file
+     * @return true on success
      * @throws IOException
      */
     public boolean editTxtFile(String content) throws IOException {
@@ -158,9 +158,9 @@ public class FileManager {
 
     /**
      * changes the content of a given text file to a specified String
-     * @param path
-     * @param content
-     * @return
+     * @param path the absolute path
+     * @param content new content of text file
+     * @return true on success
      * @throws IOException
      */
     public boolean editTxtFile(File path, String content) throws IOException {
@@ -170,7 +170,7 @@ public class FileManager {
 
     /**
      * deletes the currently selected File
-     * @return
+     * @return true on success
      */
     public boolean deleteFile(){
         if(selectedFile.exists()){
@@ -181,14 +181,18 @@ public class FileManager {
 
     /**
      * deletes the FIle at the specified location
-     * @param path
-     * @return
+     * @param path the absolute path of the file
+     * @return true on success
      */
     public boolean deleteFile(String path){
         selectedFile = new File(path);
         return deleteFile();
     }
 
+    /**
+     * returns the contents of the root directory
+     * @return list of files in the root directory of the system
+     */
     public File[] getRootDir() {
         return File.listRoots();
     }
